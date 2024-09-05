@@ -56,10 +56,23 @@ extension ViewController: WKScriptMessageHandler {
         if message.name == "SendMessage" {
             // 이거일 때 처리해야 할 일
             print("self: SendMessage 메세지! ")
+            print("message.body: \(message.body)")
+            // Any: 변수, 구조체, 클래스 다 올 수 있음
+            // AnyObject : 클래스만 올 수 있음
         } else if message.name == "SayHello" {
             print("self: SayHello 메세지! ")
+            print("message.body: \(message.body)")
         } else if message.name == "SetUser" {
             print("self: SetUser 메세지! ")
+            print("message.body: \(message.body)")
+            
+            let info = message.body as? [String:String]
+            
+            // JS 객체를 보냈다. (name, email, phone, gender) 를 보낸것! -> 딕셔너리처럼 생각하면 됨 
+            if let info {
+                print(info["name"]!, info["gender"]!, info["email"]!)
+            }
+            
         } else {
             print("else 입니당")
         }
