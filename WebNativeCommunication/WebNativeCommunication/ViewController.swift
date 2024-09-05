@@ -49,6 +49,8 @@ class ViewController: UIViewController {
         guard let url = URL(string: "http://127.0.0.1:8080") else { return }
         let request = URLRequest(url: url)
         webView?.load(request)
+        
+        webView?.uiDelegate = self
     }
     
     // JS 코드에 있는 call_func2() 호출
@@ -131,3 +133,57 @@ class MessageHandler: NSObject, WKScriptMessageHandler {
         print("Message Handler: \(message)")
     }
 } */
+
+extension ViewController: WKUIDelegate {
+
+    // Alert
+    func webView(_ webView: WKWebView, runJavaScriptAlertPanelWithMessage message: String, initiatedByFrame frame: WKFrameInfo, completionHandler: @escaping () -> Void) {
+        let alert = UIAlertController(title: nil, message: message, preferredStyle: .alert)
+        let actionOK = UIAlertAction(title: "확인", style: .default) { _ in
+            completionHandler()
+        }
+        alert.addAction(actionOK)
+        
+        present(alert, animated: true)
+    }
+    
+    // Confirm
+    func webView(_ webView: WKWebView, runJavaScriptConfirmPanelWithMessage message: String, initiatedByFrame frame: WKFrameInfo, completionHandler: @escaping (Bool) -> Void) {
+        let alert = UIAlertController(title: nil, message: message, preferredStyle: .alert)
+        let actionOK = UIAlertAction(title: "확인", style: .default) { _ in
+            completionHandler(true)
+        }
+        let actionCancel = UIAlertAction(title: "취소", style: .cancel) { _ in
+            completionHandler(false)
+        }
+        alert.addAction(actionOK)
+        alert.addAction(actionCancel)
+        
+        present(alert, animated: true)
+    }
+    
+    // Prompt
+    func webView(_ webView: WKWebView, runJavaScriptTextInputPanelWithPrompt prompt: String, defaultText: String?, initiatedByFrame frame: WKFrameInfo, completionHandler: @escaping (String?) -> Void) {
+        let alert = UIAlertController(title: nil, message: prompt, preferredStyle: .alert)
+        alert.addTextField { textfield in
+            textfield.placeholder = defaultText
+        }
+        
+        let action = UIAlertAction(title: "입력하세요", style: .default) { _ in
+//            let text = alert.textFields?[0].text
+            // add로 추가했다는 건 여러개를 넣을 수 있다는 거라서 textFields는 [UITextField] 타입인 것
+            
+            if let userInput = alert.textFields?[0] {
+                let text = userInput.text == "" ? defaultText : userInput.text
+                completionHandler(text)
+            } else {
+                // textField가 Nil이면
+                completionHandler(defaultText)
+            }
+        }
+        
+        alert.addAction(action)
+        present(alert, animated: true)
+        
+    }
+}
