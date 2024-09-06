@@ -23,6 +23,8 @@ class BookTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        prevButton.isEnabled = false
+        nextButton.isEnabled = false
     }
 
     @IBAction func nextButtonTapped(_ sender: Any) {
@@ -128,10 +130,20 @@ class BookTableViewController: UITableViewController {
         }
         return cell
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let detailViewController = segue.destination as? DetailViewController
+        guard let indexPath = tableView.indexPathForSelectedRow,
+              let book = documents?[indexPath.row]
+        else { return }
+        
+        detailViewController?.strURL = book["url"] as? String
+    }
 }
 
 extension BookTableViewController: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         page = 1
+        searchBar.resignFirstResponder()
     }
 }
