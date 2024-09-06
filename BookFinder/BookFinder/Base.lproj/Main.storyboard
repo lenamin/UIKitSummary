@@ -75,11 +75,22 @@
                     <navigationItem key="navigationItem" title="Book Finder" id="5oh-pn-I5i">
                         <barButtonItem key="leftBarButtonItem" title="이전" image="arrowshape.left.fill" catalog="system" id="o6c-RE-inj">
                             <color key="tintColor" red="0.47684186699999997" green="0.50480759139999998" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <connections>
+                                <action selector="prevButtonTapped:" destination="8wb-el-dzq" id="J3a-kG-tEt"/>
+                            </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="다음" image="arrowshape.right.fill" catalog="system" id="euX-pr-cxz">
                             <color key="tintColor" red="0.47684186699999997" green="0.50480759139999998" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <connections>
+                                <action selector="nextButtonTapped:" destination="8wb-el-dzq" id="Wb2-og-Vyz"/>
+                            </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="nextButton" destination="euX-pr-cxz" id="IcG-OP-nkw"/>
+                        <outlet property="prevButton" destination="o6c-RE-inj" id="ghf-lL-Vr6"/>
+                        <outlet property="searchBar" destination="H0H-fJ-tQ2" id="Am3-zb-Fva"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="j0L-xY-nGf" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

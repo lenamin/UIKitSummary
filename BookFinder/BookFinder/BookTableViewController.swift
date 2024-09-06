@@ -9,13 +9,30 @@ import UIKit
 
 class BookTableViewController: UITableViewController {
 
-    var page = 1
+    var page = 1 {
+        didSet {
+            prevButton.isEnabled = page > 1
+            searchWithQuery(searchBar.text, page: page)
+        }
+    }
     var documents: [[String:Any]]?
+    
+    @IBOutlet weak var searchBar: UISearchBar!
+    @IBOutlet weak var nextButton: UIBarButtonItem!
+    @IBOutlet weak var prevButton: UIBarButtonItem!
     
     override func viewDidLoad() {
         super.viewDidLoad()
     }
 
+    @IBAction func nextButtonTapped(_ sender: Any) {
+        page += 1
+    }
+    
+    @IBAction func prevButtonTapped(_ sender: Any) {
+        page -= 1
+    }
+    
     func searchWithQuery(_ query: String?, page: Int) {
         
         guard let query else { return print("검색어를 입력하세요")
@@ -24,7 +41,7 @@ class BookTableViewController: UITableViewController {
         let endPoint = "https://dapi.kakao.com/v3/search/book?query=\(query)&page=\(page)"
         
         guard let strURL = endPoint.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed),
-              let url = URL(string: endPoint) else { return }
+              let url = URL(string: strURL) else { return }
         
         var request = URLRequest(url: url)
         
@@ -38,7 +55,7 @@ class BookTableViewController: UITableViewController {
         
         let task = session.dataTask(with: request) { data, response, error in
             if let error {
-                print("error 발생~")
+                print("\(error) error 발생~")
                 return
             }
             
@@ -48,6 +65,13 @@ class BookTableViewController: UITableViewController {
                 guard let rootObject = try JSONSerialization.jsonObject(with: data) as? [String: Any] else { return }
                 self.documents = rootObject["documents"] as? [[String:Any]]
                 
+                if let meta = rootObject["meta"] as? [String:Any],
+                   let isEnd = meta["is_end"] as? Bool {
+                    DispatchQueue.main.async {
+                        self.nextButton.isEnabled = !isEnd
+                    }
+                }
+                   
                 DispatchQueue.main.async {
                     self.tableView.reloadData()
                 }
@@ -56,7 +80,6 @@ class BookTableViewController: UITableViewController {
                 print("JSON parsing error 발생!")
             }
         }
-        
         task.resume()
     }
     
@@ -110,6 +133,5 @@ class BookTableViewController: UITableViewController {
 extension BookTableViewController: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         page = 1
-        searchWithQuery(searchBar.text, page: page)
     }
 }
