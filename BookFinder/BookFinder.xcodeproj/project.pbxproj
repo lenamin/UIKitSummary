@@ -13,6 +13,7 @@
 		BFA5E01A2C8AA3CD00291C37 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BFA5E0192C8AA3CD00291C37 /* Assets.xcassets */; };
 		BFA5E01D2C8AA3CD00291C37 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = BFA5E01C2C8AA3CD00291C37 /* Base */; };
 		BFA5E0282C8AC59C00291C37 /* BookTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFA5E0272C8AC59C00291C37 /* BookTableViewController.swift */; };
+		BFB3E9972C8AE7A600B191EA /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFB3E9962C8AE7A600B191EA /* DetailViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -25,6 +26,7 @@
 		BFA5E01E2C8AA3CD00291C37 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BFA5E0262C8AA67E00291C37 /* Secrets.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Secrets.xcconfig; sourceTree = "<group>"; };
 		BFA5E0272C8AC59C00291C37 /* BookTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookTableViewController.swift; sourceTree = "<group>"; };
+		BFB3E9962C8AE7A600B191EA /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -65,6 +67,7 @@
 				BFA5E0192C8AA3CD00291C37 /* Assets.xcassets */,
 				BFA5E01B2C8AA3CD00291C37 /* LaunchScreen.storyboard */,
 				BFA5E01E2C8AA3CD00291C37 /* Info.plist */,
+				BFB3E9962C8AE7A600B191EA /* DetailViewController.swift */,
 			);
 			path = BookFinder;
 			sourceTree = "<group>";
@@ -143,6 +146,7 @@
 				BFA5E0112C8AA3CB00291C37 /* AppDelegate.swift in Sources */,
 				BFA5E0282C8AC59C00291C37 /* BookTableViewController.swift in Sources */,
 				BFA5E0132C8AA3CB00291C37 /* SceneDelegate.swift in Sources */,
+				BFB3E9972C8AE7A600B191EA /* DetailViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
